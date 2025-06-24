@@ -16,6 +16,9 @@ exec_always --no-startup-id $HOME/.config/i3/scripts/wallpaper
 # Execute polybar on launch. Script kills current ones on i3 refresh, otherwise they duplicate
 exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 
+# Enable touchpad tapping
+exec xinput set-prop "VEN_04F3:00 04F3:3259 Touchpad" "libinput Tapping Enabled" 1
+
 # Set font
 font pango:Iosevka Nerd Font Mono 10
 
@@ -23,7 +26,7 @@ floating_modifier $mod
 
 # xss-lock grabs a logind suspend inhibit lock and will use i3lock to lock the
 # screen before suspend. Use loginctl lock-session to lock your screen.
-exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork -i $HOME/wallpapers/lockscreen.png
+exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork -i /home/suswan/Pictures/wallpapers/lockscreen.png
 
 # Start autotiler
 exec_always --no-startup-id autotiling
@@ -38,7 +41,7 @@ bindsym Control+Mod1+l exec --no-startup-id $HOME/.config/i3/scripts/lock
 exec --no-startup-id nm-applet
 
 # Use mod+n to open network connection editor
-bindsym $mod+n exec --no-startup-id alacritty -e nmtui-connect
+bindsym $mod+n exec --no-startup-id kitty -e nmtui-connect
 
 # Screenshot with $mod+Shift+s
 bindsym $mod+Shift+s exec --no-startup-id $HOME/.config/i3/scripts/shot
@@ -58,7 +61,7 @@ bindsym XF86MonBrightnessUp exec brightnessctl set +10%
 bindsym XF86MonBrightnessDown exec brightnessctl set 10%-
 
 # Open new terminal
-bindsym $mod+Return exec alacritty
+bindsym $mod+Return exec kitty
 
 # move tiling windows via drag & drop by left-clicking into the title bar,
 # or left-clicking anywhere into the window while holding the floating modifier.
@@ -68,7 +71,17 @@ tiling_drag modifier titlebar
 bindsym $mod+Shift+q kill
 
 # Open dmenu
-bindsym $mod+d exec ~/.config/i3/scripts/dmenu_cmd
+# bindsym $mod+d exec ~/.config/i3/scripts/dmenu_cmd
+bindsym $mod+d exec ~/.config/rofi/launchers/type-4/launcher.sh
+
+# powermenu
+bindsym $mod+p exec ~/.config/rofi/powermenu/type-1/powermenu.sh
+
+# open firefox
+bindsym $mod+f exec firefox
+
+# open nautilus
+bindsym $mod+b exec nautilus
 
 # Change window focus
 bindsym $mod+j focus left
@@ -101,7 +114,7 @@ bindsym $mod+h split h
 bindsym $mod+v split v
 
 # Enter fullscreen mode for the focused container
-bindsym $mod+f fullscreen toggle
+bindsym $mod+Shift+f fullscreen toggle
 
 # Change container layout (stacked, tabbed, toggle split)
 bindsym $mod+s layout stacking
